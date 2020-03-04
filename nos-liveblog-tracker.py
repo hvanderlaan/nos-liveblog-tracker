@@ -2,6 +2,41 @@
 
 """ Simple liveblog tracker of nos.nl """
 
+# =========================================================================== #
+# File   : nos-liveblog-tracker.py                                            #
+# Purpose: Displaying the headlines from the nos liveblog                     #
+#                                                                             #
+# Author : Harald van der Laan                                                #
+# Date   : 2020-03-04                                                         #
+# Version: v2.0.2                                                             #
+# =========================================================================== #
+# Changelog:                                                                  #
+# - v2.0.2: Changed code for getting liveblog url       (Harald van der Laan) #
+# - v2.0.1: Update with daemon functionality            (Harald van der Laan) #
+# - v2.0.0: Rewritten code to python3 script            (Harald van der Laan) #
+# - v1.x.x: Legacy shell script not supported any more  (Harald van der laan) #
+# =========================================================================== #
+# Copyright © 2020 Harald van der Laan                                        #
+#                                                                             #
+# Permission is hereby granted, free of charge, to any person obtaining       #
+# a copy of this software and associated documentation files (the "Software") #
+# to deal in the Software without restriction, including without limitation   #
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,    #
+# and/or sell copies of the Software, and to permit persons to whom the       #
+# Software is furnished to do so, subject to the following conditions:        #
+#                                                                             #
+# The above copyright notice and this permission notice shall be included     #
+# in all copies or substantial portions of the Software.                      #
+#                                                                             #
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,             #
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES             #
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   #
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, #
+# DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,               #
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE  #
+# OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                               #
+# =========================================================================== #
+
 import sys
 import re
 import time
@@ -15,7 +50,8 @@ import bs4
 def get_args():
     """ function for getting commandline arguments """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-d', '--daemon', action='store_true', help="Draai script als daemon")
+    parser.add_argument('-d', '--daemon', action='store_true',
+                        help="Draai script als daemon")
     parser.add_argument('-u', '--url', help="URL van liveblog")
 
     return parser.parse_args()
@@ -59,16 +95,7 @@ def main(args):
         headlines = get_live_data(args.url)
     else:
         if links:
-            if len(links) == 1:
-                headlines = get_live_data(links[0])
-            else:
-                counter = 0
-                for link in links:
-                    print(f'{counter}. {link}')
-                    counter = counter + 1
-
-                entry = input('geeft een liveblog numer op: ')
-                headlines = get_live_data(links[int(entry)-1])
+            headlines = get_live_data(links[0])
         else:
             print('Er is op dit moment geen active liveblog op nos.nl.')
             sys.exit(127)
