@@ -85,17 +85,22 @@ def get_live_data(url):
 
 
 def main(args):
-    print('*'*60)
+    print('*' * 60)
     print('NOS liveblog tracker v2.1.0 - by: Harald van der Laan')
-    print('*'*60)
-    print()
+    print('*' * 60)
 
     links = get_liveblogs()
 
     if args.url:
+        print(f'Liveblog: {args.url}')
+        print('*' * 60)
+        print()
         headlines = get_live_data(args.url)
     else:
         if links:
+            print(f'Liveblog: {links[0]}')
+            print('*' * 60)
+            print()
             headlines = get_live_data(links[0])
         else:
             print('Er is op dit moment geen active liveblog op nos.nl.')
