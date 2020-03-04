@@ -44,11 +44,9 @@ def get_live_data(url):
     return headlines
 
 
-def main():
-    args = get_args()
-
+def main(args):
     print('*'*60)
-    print('NOS liveblog tracker v2.0 - by: Harald van der Laan')
+    print('NOS liveblog tracker v2.0.1 - by: Harald van der Laan')
     print('*'*60)
     print()
 
@@ -77,5 +75,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    ARGS = get_args()
+    main(ARGS)
     sys.exit(0)
