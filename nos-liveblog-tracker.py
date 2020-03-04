@@ -4,6 +4,8 @@
 
 import sys
 import re
+import time
+import subprocess
 import argparse
 
 import requests
@@ -13,7 +15,8 @@ import bs4
 def get_args():
     """ function for getting commandline arguments """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-u', '--url', help="URL of liveblog")
+    parser.add_argument('-d', '--daemon', action='store_true', help="Draai script als daemon")
+    parser.add_argument('-u', '--url', help="URL van liveblog")
 
     return parser.parse_args()
 
@@ -76,5 +79,16 @@ def main(args):
 
 if __name__ == "__main__":
     ARGS = get_args()
-    main(ARGS)
-    sys.exit(0)
+
+    if ARGS.daemon:
+        while True:
+            try:
+                subprocess.Popen('clear', shell=True)
+                time.sleep(.5)
+                main(ARGS)
+                time.sleep(60)
+            except KeyboardInterrupt:
+                sys.exit(0)
+    else:
+        main(ARGS)
+        sys.exit(0)
