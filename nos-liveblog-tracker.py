@@ -8,9 +8,10 @@
 #                                                                             #
 # Author : Harald van der Laan                                                #
 # Date   : 2020-03-04                                                         #
-# Version: v2.0.2                                                             #
+# Version: v2.1.0                                                             #
 # =========================================================================== #
 # Changelog:                                                                  #
+# - v2.1.0: Version number bump for better versioning   (Harald van der Laan) #
 # - v2.0.2: Changed code for getting liveblog url       (Harald van der Laan) #
 # - v2.0.1: Update with daemon functionality            (Harald van der Laan) #
 # - v2.0.0: Rewritten code to python3 script            (Harald van der Laan) #
@@ -85,7 +86,7 @@ def get_live_data(url):
 
 def main(args):
     print('*'*60)
-    print('NOS liveblog tracker v2.0.1 - by: Harald van der Laan')
+    print('NOS liveblog tracker v2.1.0 - by: Harald van der Laan')
     print('*'*60)
     print()
 
