@@ -8,9 +8,10 @@
 #                                                                             #
 # Author : Harald van der Laan                                                #
 # Date   : 2020-03-04                                                         #
-# Version: v2.1.0                                                             #
+# Version: v2.1.1                                                             #
 # =========================================================================== #
 # Changelog:                                                                  #
+# - v2.1.1: Added progressbar for refresh               (Harald van der Laan) #
 # - v2.1.0: Version number bump for better versioning   (Harald van der Laan) #
 # - v2.0.2: Changed code for getting liveblog url       (Harald van der Laan) #
 # - v2.0.1: Update with daemon functionality            (Harald van der Laan) #
@@ -46,6 +47,8 @@ import argparse
 
 import requests
 import bs4
+
+from progress.bar import Bar
 
 
 def get_args():
@@ -107,6 +110,7 @@ def main(args):
             sys.exit(127)
 
     for line in headlines:
+        line = re.sub('^ ', '', str(line))
         print(line)
 
 
@@ -119,7 +123,16 @@ if __name__ == "__main__":
                 subprocess.Popen('clear', shell=True)
                 time.sleep(.5)
                 main(ARGS)
-                time.sleep(60)
+                print()
+
+                bar = Bar('Verversen over: ', max=60)
+                bar.goto(0)
+
+                for refresh in range(60):
+                    bar.next()
+                    time.sleep(1)
+
+                bar.clearln()
             except KeyboardInterrupt:
                 sys.exit(0)
     else:
